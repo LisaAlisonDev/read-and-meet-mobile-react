@@ -32,13 +32,11 @@ export default function LoginScreen() {
         password,
       });
 
-     
       const {token, user} = response.data;
+
       await authContext.save("token", token)
-      console.log(response.data.user)
       userContext.saveUser(user);
      
-
     } catch (error) {
       Alert.alert("Erreur" , error.response.data.message);
     }

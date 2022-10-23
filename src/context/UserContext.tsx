@@ -11,8 +11,10 @@ export type Props = {
 };
 
 const UserProvider : React.FC<Props> = ({children}) => {
-  const [user, setUser] = useState({
-    user :  null
+  const [user, setUser] = useState<User>({
+    id :  0,
+    name : null,
+    email : null
   })
 
   const saveUser = async (user : User) => {
@@ -23,7 +25,7 @@ const UserProvider : React.FC<Props> = ({children}) => {
     }
 
     await saveToStorage('user', JSON.stringify(newUser))
-    setUser({user : newUser})
+    setUser(newUser)
   }
 
   
@@ -33,7 +35,7 @@ const UserProvider : React.FC<Props> = ({children}) => {
   
 
   const updateUser = (user : User) => {
-    setUser({user : user})
+    setUser(user)
   }
 
 
@@ -52,7 +54,7 @@ const UserProvider : React.FC<Props> = ({children}) => {
   }
   
     const logout = async () => {
-      setUser({user : null});
+      setUser(user);
    };
 
   return (

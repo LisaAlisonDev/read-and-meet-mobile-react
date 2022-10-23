@@ -1,6 +1,5 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthProvider } from './src/context/AuthContext';
 import { AxiosProvider } from './src/context/AxiosContext';
 import {AppRegistry} from 'react-native';
