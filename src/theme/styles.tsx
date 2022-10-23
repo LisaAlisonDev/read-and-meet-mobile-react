@@ -8,9 +8,16 @@ export default StyleSheet.create({
           backgroundColor: "#fff",
           alignItems: "center",
           justifyContent: "center",
+          padding: 30
         },
         image: {
           marginBottom: 40,
+          position: "relative",
+          marginHorizontal: "auto",
+          alignItems: "center",
+          textAlign: "center",
+          width: 50,
+          height: 50
         },
       
         inputView: {
@@ -47,4 +54,27 @@ export default StyleSheet.create({
         loginText: {
           color: "#fff"
         },
-      });
+
+        buttonStyle: {
+          alignItems: 'center',
+          backgroundColor: '#DDDDDD',
+          padding: 10,
+          width: '100%',
+          marginTop: 16,
+        },
+        title1: {
+            textAlign: 'center',
+            fontWeight: 'bold'
+        },
+        navigationBar: {
+            justifyContent: 'center',
+            flex: 1,
+            padding: 0,
+        },
+  
+        homeContainer: {
+          justifyContent: 'center',
+          flex: 1,
+          padding: 30,
+      },
+    });

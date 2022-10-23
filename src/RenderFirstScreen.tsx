@@ -13,9 +13,9 @@ const RenderFirstScreen = () => {
 
   const loadJWT = useCallback(async () => {
     try {
-      const value = await authContext.getAccessToken();
-      const user = await userContext.getUserFromStorage();
-      
+      const value = await authContext.getTokenFromLocal();
+      const user = await userContext.getUserFromLocal();
+
       const jwt = value;
       const userInfo = user;
 
@@ -27,7 +27,7 @@ const RenderFirstScreen = () => {
       setStatus('success');
     } catch (error) {
       setStatus('error');
-      console.log(`Keychain Error: ${error.message}`);
+      console.log(`Error on loading jwt: ${error.message}`);
       authContext.setAuthState({
         token: null,
         authenticated: false,
@@ -46,8 +46,9 @@ const RenderFirstScreen = () => {
   if (authContext?.authState?.authenticated === false) {
     return <LoginScreen />;
   } else {
-    return <Home />;
+    return <Home/>
   }
 };
 
 export default RenderFirstScreen;
+

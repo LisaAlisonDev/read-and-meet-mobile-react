@@ -28,23 +28,19 @@ const UserProvider : React.FC<Props> = ({children}) => {
     setUser(newUser)
   }
 
-  
-  function getUser(){
+  function getUser() : User{
     return user;
   }
   
-
-  const updateUser = (user : User) => {
+  const updateUser = (user : User)  => {
     setUser(user)
   }
 
-
-  async function saveToStorage(key, value) {
+  async function saveToStorage(key, value) : Promise<void> {
     await SecureStore.setItemAsync(key, value);
   }
 
-
-  async function getUserFromStorage() { // todo : change name to token from secure store
+  async function getUserFromLocal() { // todo : change name to token from secure store
     let result = await SecureStore.getItemAsync('user');
     console.log("user", result)
     if (result !== null) {
@@ -62,7 +58,7 @@ const UserProvider : React.FC<Props> = ({children}) => {
       value={{
         saveUser,
         setUser,
-        getUserFromStorage,
+        getUserFromLocal,
         getUser,
         updateUser,
         logout

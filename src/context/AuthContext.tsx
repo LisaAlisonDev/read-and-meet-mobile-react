@@ -1,7 +1,7 @@
 //AuthContext.js
 import React, {createContext, useState} from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { useRoute } from '@react-navigation/native';
+import { getLocalData, removeLocalData, saveToLocal } from '../services/local.store.management';
 
 const AuthContext = createContext(null);
 const {Provider} = AuthContext;
@@ -16,39 +16,29 @@ const AuthProvider : React.FC<Props> = ({children}) => {
     authenticated: null,
   });
 
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-    console.log("saving", value)
+  async function save(key, value) : Promise<void>{
+    await saveToLocal(key ,value)
     setAuthState({
       token: value,
       authenticated: true,
     });
   }
   
-  async function getAccessToken() { // todo : change name to token from secure store
-    let result = await SecureStore.getItemAsync('token');
-    console.log("test", result)
-    if (result !== null) {
-      return result;
-    } 
-    return null;
-  }
-
-  async function getUser() { // todo : change name to token from secure store
-    let result = await SecureStore.getItemAsync('token');
-    if (result !== null) {
-      return result;
-    } 
-    return null;
+  async function getTokenFromLocal() : Promise<String> {
+    let token = await getLocalData('token');
+    return token;
   }
   
-  
-  const getAuthToken = () => {
+  const getToken = () : String => {
     return authState.token;
   };
 
-  
+  const removeUserData = async () => {
+    await removeLocalData()
+  }
+
    const logout = async () => {
+    await removeUserData()
      setAuthState({
        token: null,
        authenticated: false,
@@ -62,9 +52,8 @@ const AuthProvider : React.FC<Props> = ({children}) => {
       value={{
         authState,
         save,
-        getAccessToken,
-        getUser,
-        getAuthToken,
+        getTokenFromLocal,
+        getToken,
         setAuthState,
         logout,
       }}>

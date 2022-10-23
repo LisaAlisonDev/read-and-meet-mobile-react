@@ -8,10 +8,11 @@ import {
     StyleSheet,
     FlatList,
 } from "react-native";
+import { Post } from '../@types/post';
 
 const PostCard: React.FC = () => {
     const { authAxios } = useContext(AxiosContext);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -32,14 +33,19 @@ const PostCard: React.FC = () => {
 
     const renderItem = ({ item }) => {
         return (
-            <Text>{item.title}</Text>
+            <>
+            <Text style={{ fontWeight: 'bold', marginTop: 20}}>{item.title}</Text>
+            <Text>{item.description}</Text>
+            </>
         );
     };
     return (
         <View>
+            <Text  style={{ marginTop: 10}}> Les annonces postés récemment :</Text>
             {loading && <Text>Loading..</Text>}
             {data && (
                 <FlatList
+                    style={{ marginTop: 20}}
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id.toString()}

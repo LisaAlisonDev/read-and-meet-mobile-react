@@ -8,7 +8,7 @@ export type UserContextType = {
     setUser: (user : any) => void;
     saveUser: (user : User) => void;
     getUser : () => any;
-    getUserFromStorage: () => any;
+    getUserFromLocal: () => any;
     updateUser: (user : User) => void;
     logout: () => void;
 

@@ -18,10 +18,8 @@ const AxiosProvider = ({children}) => {
 
   authAxios.interceptors.request.use(
     config => {
-    //  let token = await authContext.getAccessToken()
-
       if (!config.headers.Authorization) {
-        config.headers.Authorization = `Bearer ${authContext.getAuthToken()}`;
+        config.headers.Authorization = `Bearer ${authContext.getToken()}`;
       }
 
       return config;
