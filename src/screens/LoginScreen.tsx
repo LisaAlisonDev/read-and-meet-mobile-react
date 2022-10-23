@@ -7,12 +7,11 @@ import styles from "../theme/styles";
 import {
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { UserContext } from "../context/UserContext";
 
 
 
@@ -22,7 +21,9 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
 
   const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
   const {publicAxios} = useContext(AxiosContext);
+  
 
   const onLogin = async () => {
     try {
@@ -31,14 +32,19 @@ export default function LoginScreen() {
         password,
       });
 
-      console.log(response.data)
-      const {token, refreshToken} = response.data;
+     
+      const {token, user} = response.data;
       await authContext.save("token", token)
+      console.log(response.data.user)
+      userContext.saveUser(user);
+     
+
     } catch (error) {
-      Alert.alert('Login Failed', error.response.data.message);
+      Alert.alert("Erreur" , error.response.data.message);
     }
   };
 
+ 
   return (
 
     <View style={styles.container}>

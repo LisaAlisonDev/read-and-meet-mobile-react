@@ -1,7 +1,7 @@
 //AuthContext.js
 import React, {createContext, useState} from 'react';
-import * as Keychain from 'react-native-keychain';
 import * as SecureStore from 'expo-secure-store';
+import { useRoute } from '@react-navigation/native';
 
 const AuthContext = createContext(null);
 const {Provider} = AuthContext;
@@ -9,10 +9,10 @@ const {Provider} = AuthContext;
 export type Props = {
   children: any;
 };
+
 const AuthProvider : React.FC<Props> = ({children}) => {
   const [authState, setAuthState] = useState({
     token: null,
-  //  refreshToken: null,
     authenticated: null,
   });
 
@@ -21,33 +21,41 @@ const AuthProvider : React.FC<Props> = ({children}) => {
     console.log("saving", value)
     setAuthState({
       token: value,
-      //refreshToken: null,
       authenticated: true,
     });
   }
   
-  async function getAccessToken() {
+  async function getAccessToken() { // todo : change name to token from secure store
     let result = await SecureStore.getItemAsync('token');
-    console.log("result", result)
+    console.log("test", result)
+    if (result !== null) {
+      return result;
+    } 
+    return null;
+  }
+
+  async function getUser() { // todo : change name to token from secure store
+    let result = await SecureStore.getItemAsync('token');
     if (result !== null) {
       return result;
     } 
     return null;
   }
   
-
-   const logout = async () => {
-  //   await Keychain.resetGenericPassword();
-     setAuthState({
-       token: null,
-       //refreshToken: null,
-       authenticated: false,
-     });
+  
+  const getAuthToken = () => {
+    return authState.token;
   };
 
-  // const getAccessToken = () => {
-  //   return authState.token;
-  // };
+  
+   const logout = async () => {
+     setAuthState({
+       token: null,
+       authenticated: false,
+     });
+
+     
+  };
 
   return (
     <Provider
@@ -55,6 +63,8 @@ const AuthProvider : React.FC<Props> = ({children}) => {
         authState,
         save,
         getAccessToken,
+        getUser,
+        getAuthToken,
         setAuthState,
         logout,
       }}>

@@ -1,21 +1,25 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import LoginScreen from './screens/LoginScreen';
 import {AuthContext} from './context/AuthContext';
-import Home from './screens/Home';
+import Home from './screens/HomeScreen';
 import Spinner from './components/SpinnerComponent';
+import { UserContext } from './context/UserContext';
 
 
 const RenderFirstScreen = () => {
   const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
   const [status, setStatus] = useState('loading');
 
   const loadJWT = useCallback(async () => {
     try {
       const value = await authContext.getAccessToken();
-      console.info("test", value)
-      const jwt = value;
-
+      const user = await userContext.getUserFromStorage();
       
+      const jwt = value;
+      const userInfo = user;
+
+      userContext.setUser({user : userInfo})
       authContext.setAuthState({
         token: jwt || null,
         authenticated: jwt !== null,
@@ -39,7 +43,6 @@ const RenderFirstScreen = () => {
     return <Spinner />;
   }
 
-  console.log(authContext?.authState?.authenticated);
   if (authContext?.authState?.authenticated === false) {
     return <LoginScreen />;
   } else {

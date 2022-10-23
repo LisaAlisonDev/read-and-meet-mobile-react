@@ -5,14 +5,16 @@ import { AuthProvider } from './src/context/AuthContext';
 import { AxiosProvider } from './src/context/AxiosContext';
 import {AppRegistry} from 'react-native';
 import RenderFirstScreen from "./src/RenderFirstScreen";
+import { UserProvider } from "./src/context/UserContext";
 
-const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
         <AxiosProvider>
+          <UserProvider>
           <RenderFirstScreen/>
+          </UserProvider>
         </AxiosProvider>
       </AuthProvider>
     </NavigationContainer>
