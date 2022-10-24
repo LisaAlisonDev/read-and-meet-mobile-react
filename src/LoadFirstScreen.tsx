@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import LoginScreen from './screens/LoginScreen';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/api/AuthContext';
 import Spinner from './components/SpinnerComponent';
-import { UserContext } from './context/UserContext';
+import { UserContext } from './context/user/UserContext';
 import HomeScreen from './screens/HomeScreen';
 
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { AuthProvider } from './src/context/AuthContext';
-import { AxiosProvider } from './src/context/AxiosContext';
+import { AuthProvider } from './src/context/api/AuthContext';
+import { AxiosProvider } from './src/context/api/AxiosContext';
 import { AppRegistry } from 'react-native';
 import RenderFirstScreen from "./src/LoadFirstScreen";
-import { UserProvider } from "./src/context/UserContext";
-import { ProfileProvider } from "./src/context/ProfilContext";
+import { UserProvider } from "./src/context/user/UserContext";
+import { ProfileProvider } from "./src/context/user/ProfilContext";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";

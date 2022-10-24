@@ -1,6 +1,6 @@
 //AuthContext.js
 import React, {createContext, useState} from 'react';
-import { getLocalData, removeLocalData, saveToLocal } from '../services/local.store.management';
+import { getLocalData, removeLocalData, saveToLocal } from '../../services/local.store.management';
 
 const AuthContext = createContext(null);
 const {Provider} = AuthContext;

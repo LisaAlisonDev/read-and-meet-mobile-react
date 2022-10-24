@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { AxiosContext } from '../context/AxiosContext';
+import { AuthContext } from '../context/api/AuthContext';
+import { AxiosContext } from '../context/api/AxiosContext';
 import styles from "../theme/styles";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import {
@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { UserContext } from "../context/UserContext";
-import { ProfileContext } from "../context/ProfilContext";
+import { UserContext } from "../context/user/UserContext";
+import { ProfileContext } from "../context/user/ProfilContext";
 import { RoutesStack } from "../@types/routes.stack";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 

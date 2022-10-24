@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AxiosContext } from '../context/AxiosContext';
+import { AxiosContext } from '../context/api/AxiosContext';
 import { Text, View } from 'react-native';
 import {
     StyleSheet,

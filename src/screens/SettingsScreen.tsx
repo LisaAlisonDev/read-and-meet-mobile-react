@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { AxiosContext } from '../context/AxiosContext';
+import { AuthContext } from '../context/api/AuthContext';
+import { AxiosContext } from '../context/api/AxiosContext';
 import styles from "../theme/styles";
 
 import {
@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/user/UserContext";
 
 
 

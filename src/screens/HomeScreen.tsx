@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { Text, View, Alert, Image } from 'react-native';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../context/user/UserContext';
 import { User } from '../@types/user';
 import PostCard from '../components/Posts';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,7 +10,7 @@ import SettingsScreen from './SettingsScreen';
 import { mainColor } from '../theme/constant';
 import { tabBarIcon } from '../components/TabBarIcon';
 import { Profile } from '../@types/profile';
-import { ProfileContext } from '../context/ProfilContext';
+import { ProfileContext } from '../context/user/ProfilContext';
 import { Avatar } from 'react-native-paper';
 import AvatarImage from '../components/AvatarImage';
 
