@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useContext, useState} from 'react';
-import {AuthContext} from '../context/AuthContext';
-import {AxiosContext} from '../context/AxiosContext';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { AxiosContext } from '../context/AxiosContext';
 import styles from "../theme/styles";
-
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import {
   Text,
   View,
@@ -12,18 +12,23 @@ import {
   Alert,
 } from "react-native";
 import { UserContext } from "../context/UserContext";
+import { ProfileContext } from "../context/ProfilContext";
+import { RoutesStack } from "../@types/routes.stack";
+import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 
-
-
-export default function LoginScreen() {
+type screenProp = StackNavigationProp<RoutesStack>;
+const LoginScreen = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const authContext = useContext(AuthContext);
   const userContext = useContext(UserContext);
-  const {publicAxios} = useContext(AxiosContext);
-  
+  const { publicAxios } = useContext(AxiosContext);
+  const profileContext = useContext(ProfileContext)
+  const navigation = useNavigation<screenProp>();
+
+
 
   const onLogin = async () => {
     try {
@@ -32,17 +37,19 @@ export default function LoginScreen() {
         password,
       });
 
-      const {token, user} = response.data;
+      const { token, user } = response.data;
 
       await authContext.save("token", token)
       userContext.saveUser(user);
-     
+      profileContext.saveProfile(user?.profile);
+
+
     } catch (error) {
-      Alert.alert("Erreur" , error.response.data.message);
+      Alert.alert("Erreur", error.response.data.message);
     }
   };
 
- 
+
   return (
 
     <View style={styles.container}>
@@ -73,10 +80,16 @@ export default function LoginScreen() {
         <Text style={styles.forgot_button}>Mot de passe oublié ?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn} onPress ={onLogin}>
+      <TouchableOpacity style={styles.loginBtn} onPress={onLogin}>
         <Text style={styles.loginText}>SE CONNECTER</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginBtn} onPress={() =>
+        navigation.navigate('Register')
+      }><Text style={styles.loginText}>S'ENREGISTRER</Text>
       </TouchableOpacity>
     </View>
 
   );
 }
+
+export default LoginScreen;

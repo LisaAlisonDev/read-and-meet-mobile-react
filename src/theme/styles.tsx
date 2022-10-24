@@ -1,6 +1,7 @@
 import {
     StyleSheet,
   } from "react-native";
+import { mainColor } from "./constant";
 
 export default StyleSheet.create({
         container: {
@@ -18,6 +19,10 @@ export default StyleSheet.create({
           textAlign: "center",
           width: 50,
           height: 50
+        },
+        h1: {
+          fontSize: 18,
+          textAlign: "center"
         },
       
         inputView: {
@@ -48,13 +53,23 @@ export default StyleSheet.create({
           alignItems: "center",
           justifyContent: "center",
           marginTop: 40,
-          backgroundColor: "#910091",
+          backgroundColor: mainColor,
           color: "#fff"
         },
         loginText: {
           color: "#fff"
         },
-
+        avatarImage:{
+          resizeMode: 'contain',
+          alignSelf: 'center',
+          justifyContent: "center",
+          borderRadius: 50,
+          marginBottom: 20,
+          alignItems: "center",
+          textAlign: "center",
+          width: 100,
+          height: 100
+        },
         buttonStyle: {
           alignItems: 'center',
           backgroundColor: '#DDDDDD',

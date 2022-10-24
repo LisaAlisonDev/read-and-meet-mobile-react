@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { User } from '../@types/user';
-import { AuthContext } from '../context/AuthContext';
+import React, { useContext, useEffect, useState } from 'react';
 import { AxiosContext } from '../context/AxiosContext';
-import { UserContext } from '../context/UserContext';
-import { TouchableOpacity, Text, View, Alert } from 'react-native';
+import { Text, View } from 'react-native';
 import {
     StyleSheet,
     FlatList,
 } from "react-native";
 import { Post } from '../@types/post';
 
-const PostCard: React.FC = () => {
+const Posts: React.FC = () => {
     const { authAxios } = useContext(AxiosContext);
     const [data, setData] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
@@ -41,11 +38,11 @@ const PostCard: React.FC = () => {
     };
     return (
         <View>
-            <Text  style={{ marginTop: 10}}> Les annonces postés récemment :</Text>
+            <Text  style={{ marginTop: 10}}> Voici les annonces postés récemment :</Text>
             {loading && <Text>Loading..</Text>}
             {data && (
                 <FlatList
-                    style={{ marginTop: 20}}
+                    style={{ }}
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id.toString()}
@@ -55,4 +52,4 @@ const PostCard: React.FC = () => {
     )
 }
 
-export default PostCard
+export default Posts

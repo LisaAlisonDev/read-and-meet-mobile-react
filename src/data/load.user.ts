@@ -9,7 +9,7 @@ const [user, setUser] = useState<User>()
 
 const loadUser = useCallback(async () => {
     try {
-        const value = await userContext.getUserFromStorage();
+        const value = await userContext.getUserFromLocal();
         const user = JSON.parse(value)
         userContext.setUser(user)
         setUser(user)

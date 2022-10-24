@@ -1,12 +1,12 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import LoginScreen from './screens/LoginScreen';
-import {AuthContext} from './context/AuthContext';
-import Home from './screens/HomeScreen';
+import { AuthContext } from './context/AuthContext';
 import Spinner from './components/SpinnerComponent';
 import { UserContext } from './context/UserContext';
+import HomeScreen from './screens/HomeScreen';
 
 
-const RenderFirstScreen = () => {
+const LoadFirstScreen  = () => {
   const authContext = useContext(AuthContext);
   const userContext = useContext(UserContext);
   const [status, setStatus] = useState('loading');
@@ -19,7 +19,7 @@ const RenderFirstScreen = () => {
       const jwt = value;
       const userInfo = user;
 
-      userContext.setUser({user : userInfo})
+      userContext.setUser({ user: userInfo })
       authContext.setAuthState({
         token: jwt || null,
         authenticated: jwt !== null,
@@ -42,13 +42,15 @@ const RenderFirstScreen = () => {
   if (status === 'loading') {
     return <Spinner />;
   }
-
+  
   if (authContext?.authState?.authenticated === false) {
-    return <LoginScreen />;
+    return <LoginScreen/>;
   } else {
-    return <Home/>
+    return <HomeScreen/>;
   }
 };
 
-export default RenderFirstScreen;
+export default LoadFirstScreen;
+
+
 

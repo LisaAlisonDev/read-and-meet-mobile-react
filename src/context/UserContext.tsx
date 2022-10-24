@@ -14,14 +14,16 @@ const UserProvider : React.FC<Props> = ({children}) => {
   const [user, setUser] = useState<User>({
     id :  0,
     name : null,
-    email : null
+    email : null,
+    profile : { id : 0, avatar : null, user_id: null,description: null,  visibility: false}
   })
 
   const saveUser = async (user : User) => {
     const newUser : User = {
       id : user.id,
       name : user.name,
-      email : user.email
+      email : user.email,
+      profile: user.profile  
     }
 
     await saveToStorage('user', JSON.stringify(newUser))
@@ -40,9 +42,9 @@ const UserProvider : React.FC<Props> = ({children}) => {
     await SecureStore.setItemAsync(key, value);
   }
 
-  async function getUserFromLocal() { // todo : change name to token from secure store
+  async function getUserFromLocal() { // todo : to improve
     let result = await SecureStore.getItemAsync('user');
-    console.log("user", result)
+
     if (result !== null) {
       return result;
     } 

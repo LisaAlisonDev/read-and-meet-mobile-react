@@ -1,75 +1,57 @@
 //ProfilContext.js
 import React, {createContext, useState} from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { ProfilContextType, Profil } from '../@types/Profil';
+import { ProfileContextType, Profile } from '../@types/Profile';
 
-const ProfilContext = React.createContext<ProfilContextType>(null);
-const {Provider} = ProfilContext;
+const ProfileContext = React.createContext<ProfileContextType>(null);
+const {Provider} = ProfileContext;
 
 export type Props = {
    children?: JSX.Element|JSX.Element[];
 };
 
-const ProfilProvider : React.FC<Props> = ({children}) => {
-  const [Profil, setProfil] = useState<Profil>({
+const ProfileProvider : React.FC<Props> = ({children}) => {
+  const [profile, setProfile] = useState<Profile>({
     id :  0,
-    name : null,
-    email : null
+    description : null,
+    avatar : null,
+    user_id: null,
+    visibility: false
   })
 
-  const saveProfil = async (Profil : Profil) => {
-    const newProfil : Profil = {
-      id : Profil.id,
-      name : Profil.name,
-      email : Profil.email
+  const saveProfile = (profile) => {
+    const newProfile : Profile = {
+      id : profile.id,
+      user_id: profile.user_id,
+      visibility : profile.visibility,
+      description: profile.description,
+      avatar : profile.avatar,
     }
-
-    await saveToStorage('Profil', JSON.stringify(newProfil))
-    setProfil(newProfil)
+    console.info("saving profile :", profile)
+    setProfile(newProfile)
   }
 
   
-  function getProfil(){
-    return Profil;
+  function getProfile() : Profile{
+    return profile;
   }
   
 
-  const updateProfil = (Profil : Profil) => {
-    setProfil(Profil)
+  const updateProfile = (profile : Profile) => {
+    setProfile(profile)
   }
-
-
-  async function saveToStorage(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
-
-  async function getProfilFromStorage() { // todo : change name to token from secure store
-    let result = await SecureStore.getItemAsync('Profil');
-    console.log("Profil", result)
-    if (result !== null) {
-      return result;
-    } 
-    return null;
-  }
-  
-    const logout = async () => {
-      setProfil(Profil);
-   };
 
   return (
     <Provider
       value={{
-        saveProfil,
-        setProfil,
-        getProfilFromStorage,
-        getProfil,
-        updateProfil,
-        logout
+        setProfile,
+        saveProfile,
+        getProfile,
+        updateProfile,
       }}>
       {children}
     </Provider>
   );
 };
 
-export {ProfilContext, ProfilProvider};
+export {ProfileContext, ProfileProvider};
