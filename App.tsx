@@ -17,6 +17,7 @@ const Stack = createNativeStackNavigator<RoutesStack>();
 
 export default function App() {
   
+
   return (
     <NavigationContainer>
       <AuthProvider>
@@ -26,7 +27,7 @@ export default function App() {
               <Stack.Navigator initialRouteName="Loader" >
                 <Stack.Screen name="Loader"component={LoadFirstScreen} options={{ headerShown: false}} />
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} options={{title:'Inscription'}}/>
                 <Stack.Screen name="Login" component={LoginScreen} />
               </Stack.Navigator>
             </ProfileProvider>
@@ -40,4 +41,8 @@ export default function App() {
 
 AppRegistry.registerComponent("ReadAndMeet", () => App);
 
+
+function useFonts(arg0: { 'Inter-Black': any; }): [any] {
+  throw new Error("Function not implemented.");
+}
 

@@ -1,7 +1,8 @@
 import {
     StyleSheet,
   } from "react-native";
-import { mainColor } from "./constant";
+import { mainColor, secondaryColor } from "./constant";
+
 
 export default StyleSheet.create({
         container: {
@@ -9,7 +10,6 @@ export default StyleSheet.create({
           backgroundColor: "#fff",
           alignItems: "center",
           justifyContent: "center",
-          padding: 30
         },
         image: {
           marginBottom: 40,
@@ -22,38 +22,50 @@ export default StyleSheet.create({
         },
         h1: {
           fontSize: 18,
-          textAlign: "center"
+          textAlign: "center",
+          fontWeight: "bold",
+          marginBottom: 10
         },
-      
         inputView: {
-          backgroundColor: "#e8d0ff",
-          borderRadius: 30,
-          width: "70%",
+          borderColor: "grey",
+          borderWidth: 1,
+          borderRadius: 10,
+          width: "90%",
           height: 45,
-          marginBottom: 20,
-          alignItems: "center",
+          marginTop: 10,
         },
-      
         TextInput: {
           height: 50,
           flex: 1,
           padding: 10,
-          marginLeft: 20,
         },
-      
         forgot_button: {
           height: 30,
           marginBottom: 30,
+          marginTop: 10,
         },
+        margingTop5: {
+          marginTop: 10,
+        } ,
       
         loginBtn: {
-          width: "80%",
-          borderRadius: 25,
+          width: "90%",
+          borderRadius: 10,
           height: 50,
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 40,
+          marginTop: 20,
           backgroundColor: mainColor,
+          color: "#fff"
+        },
+        registerBtn :{
+          width: "50%",
+          borderRadius: 10,
+          height: 50,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 10,
+          backgroundColor: secondaryColor,
           color: "#fff"
         },
         loginText: {
@@ -85,6 +97,11 @@ export default StyleSheet.create({
             justifyContent: 'center',
             flex: 1,
             padding: 0,
+        },
+        validationTextError :{
+          justifyContent: 'flex-start',
+          color: "red",
+          textAlign : "left"
         },
   
         homeContainer: {
