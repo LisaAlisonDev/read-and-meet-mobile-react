@@ -1,7 +1,7 @@
 //ProfilContext.js
 import React, {createContext, useState} from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { ProfileContextType, Profile } from '../../@types/Profile';
+import { ProfileContextType, Profile } from '../../core/@types/Profile';
 
 const ProfileContext = React.createContext<ProfileContextType>(null);
 const {Provider} = ProfileContext;

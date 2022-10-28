@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { mainColor } from '../theme/constant';
+import { mainColor, secondaryColor } from '../../theme/constant';
 
 
 type TabBarProps = {
@@ -12,7 +12,9 @@ type TabBarProps = {
 
 export const tabBarIcon = ({ focused, color, size, route} : TabBarProps) : JSX.Element  => {
     let iconName;
-    color = mainColor
+    let top;
+    size = focused ?  50 : 20;
+    top = focused ?  -20 : 10;
     if (route.name === 'Home') {
       iconName = focused
         ? 'home'
@@ -23,5 +25,5 @@ export const tabBarIcon = ({ focused, color, size, route} : TabBarProps) : JSX.E
       iconName = focused ? 'settings' : 'settings-outline';
     }
 
-    return <Ionicons name={iconName} size={size} color={color} />;
+    return <Ionicons style={{overflow: 'visible', position: 'absolute', top: top}} name={iconName} size={size} color={color} />;
 }

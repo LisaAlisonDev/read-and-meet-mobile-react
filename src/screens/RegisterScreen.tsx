@@ -1,31 +1,18 @@
 // Import React and Component
-import React, { useState, createRef, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import {
-    StyleSheet,
     TextInput,
     View,
     Text,
-    Image,
-    KeyboardAvoidingView,
-    Keyboard,
     TouchableOpacity,
-    ScrollView,
-    TouchableHighlight,
-    Button,
     SafeAreaView,
     Alert,
 } from 'react-native';
-import requiredErrorText from '../components/Errors';
+import requiredErrorText from '../components/App/Errors';
 import { AxiosContext } from '../context/api/AxiosContext';
 import styles from '../theme/styles';
-
-type FormValues = {
-    name: string;
-    password: string;
-    email: string;
-};
-
+import forms from '../theme/styles/forms';
 
 const RegisterScreen = () => {
     const { handleSubmit, control, getValues, formState: { errors, isValid } } = useForm({
@@ -56,14 +43,17 @@ const RegisterScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-              <Text style={styles.h1}>Bienvenue  !</Text>
+            <Text style={styles.h1}>Bienvenue  !</Text>
 
             <Controller
                 name='name'
                 control={control}
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <View style={styles.inputView}>
-                        <TextInput style={styles.TextInput} onChangeText={value => onChange(value)} value={value} placeholder="Entrez votre nom" onBlur={onBlur} />
+                    <View style={forms.formInputView}>
+                        <TextInput style={forms.formTextInput} 
+                        onChangeText={value => onChange(value)} 
+                        value={value} 
+                        placeholder="Entrez votre nom" onBlur={onBlur} />
                     </View>
                 )}
                 rules={{
@@ -76,8 +66,11 @@ const RegisterScreen = () => {
                 name='email'
                 control={control}
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <View style={styles.inputView}>
-                        <TextInput style={styles.TextInput} onChangeText={value => onChange(value)} value={value} placeholder="Entrez votre email" onBlur={onBlur} />
+                    <View style={forms.formInputView}>
+                        <TextInput style={forms.formTextInput}
+                        onChangeText={value => onChange(value)} 
+                        value={value} placeholder="Entrez votre email" 
+                        onBlur={onBlur} />
                     </View>
                 )}
                 rules={{
@@ -92,8 +85,12 @@ const RegisterScreen = () => {
                 name='password'
                 control={control}
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <View style={styles.inputView}>
-                        <TextInput style={styles.TextInput} onChangeText={value => onChange(value)} value={value} placeholder="Entrez votre mot de passe" onBlur={onBlur} />
+                    <View style={forms.formInputView}>
+                        <TextInput style={forms.formTextInput} 
+                        onChangeText={value => onChange(value)} 
+                        value={value} placeholder="Entrez votre mot de passe" 
+                        secureTextEntry={true}
+                        onBlur={onBlur} />
                     </View>
                 )}
                 rules={{
@@ -101,13 +98,17 @@ const RegisterScreen = () => {
                 }} />
 
             {errors?.password?.type == "required" && requiredErrorText()}
-          
+
             <Controller
                 name='confirmPassword'
                 control={control}
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <View style={styles.inputView}>
-                        <TextInput style={styles.TextInput} onChangeText={value => onChange(value)} value={value} placeholder="Confirmer votre mot de passe" onBlur={onBlur} />
+                    <View style={forms.formInputView}>
+                        <TextInput style={forms.formTextInput} 
+                        onChangeText={value => onChange(value)} value={value} 
+                        placeholder="Confirmer votre mot de passe"
+                        secureTextEntry={true}
+                        onBlur={onBlur} />
                     </View>
                 )}
 
@@ -117,12 +118,13 @@ const RegisterScreen = () => {
                 }} />
 
             {errors?.confirmPassword?.type == 'required' && requiredErrorText()}
-            {errors?.confirmPassword?.type == 'validate' && <Text style={styles.validationTextError}> Veuillez entrer des mots de passe identique.</Text>}
+            {errors?.confirmPassword?.type == 'validate' && 
+            <Text style={forms.validationTextError}> Veuillez entrer des mots de passe identique.</Text>}
 
-            <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.loginText}>CONFIRMER</Text>
-          </TouchableOpacity>
-    
+            <TouchableOpacity style={forms.loginBtn} onPress={handleSubmit(onSubmit)}>
+                <Text style={forms.loginText}>CONFIRMER</Text>
+            </TouchableOpacity>
+
         </SafeAreaView>
     )
 }

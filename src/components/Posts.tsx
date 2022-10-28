@@ -5,7 +5,8 @@ import {
     StyleSheet,
     FlatList,
 } from "react-native";
-import { Post } from '../@types/post';
+import { Post } from '../core/@types/post';
+import styles from '../theme/styles';
 
 const Posts: React.FC = () => {
     const { authAxios } = useContext(AxiosContext);
@@ -31,20 +32,23 @@ const Posts: React.FC = () => {
     const renderItem = ({ item }) => {
         return (
             <>
-            <Text style={{ fontWeight: 'bold', marginTop: 20}}>{item.title}</Text>
-            <Text>{item.description}</Text>
+                <View style={{ backgroundColor: '#fff', marginVertical: 5, marginHorizontal: 0 , padding: 5, borderRadius: 10}}>
+                    <Text style={{ fontWeight: 'bold',  }}>{item.title}</Text>
+                    <Text style={styles.contentText}>{item.description}</Text>
+                </View>
             </>
         );
     };
     return (
         <View>
-            <Text  style={{ marginTop: 10}}> Voici les annonces postés récemment :</Text>
+            <Text style={{ marginTop: 10, fontFamily: "Gudea_400Regular", fontSize : 15 }}> Voici les annonces postés récemment :</Text>
             {loading && <Text>Loading..</Text>}
             {data && (
                 <FlatList
-                    style={{ }}
+                    style={{ marginTop : 10}}
                     data={data}
                     renderItem={renderItem}
+                    scrollEnabled={true}
                     keyExtractor={(item) => item.id.toString()}
                 />
             )}

@@ -11,8 +11,8 @@ import {
   Alert,
 } from "react-native";
 import { UserContext } from "../context/user/UserContext";
-import { User } from '../@types/user';
-import { Profile } from '../@types/profile';
+import { User } from '../core/@types/user';
+import { Profile } from '../core/@types/profile';
 import { ProfileContext } from '../context/user/ProfilContext';
 import AvatarImage from '../components/AvatarImage';
 
@@ -28,7 +28,8 @@ export default function ProfileScreen() {
   return (
 
     <View style={styles.container}>
-       <AvatarImage canEdit={true} profile={ profileContext.getProfile()}/>       
+       <AvatarImage canEdit={true} avatar={ profileContext.getProfile().avatar}/>  
+       <Text style={styles.h1}>{ userContext.getUser().name}</Text>     
       <Text> Page de profil de { userContext.getUser().name} en cours de construction ...</Text>
     </View>
 

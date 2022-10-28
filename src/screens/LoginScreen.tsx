@@ -14,11 +14,14 @@ import {
 } from "react-native";
 import { UserContext } from "../context/user/UserContext";
 import { ProfileContext } from "../context/user/ProfilContext";
-import { RoutesStack } from "../@types/routes.stack";
+import { RoutesStack } from "../core/@types/routes.stack";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
-import LogoSvg from "../components/LogoSvg";
+import LogoSvg from "../components/App/LogoSvg";
 import { Controller, useForm } from "react-hook-form";
-import requiredErrorText from "../components/Errors";
+import requiredErrorText from "../components/App/Errors";
+import forms from "../theme/styles/forms";
+import { User } from "../core/@types/user";
+import { Profile } from "../core/@types/profile";
 
 
 type screenProp = StackNavigationProp<RoutesStack>;
@@ -42,7 +45,10 @@ const LoginScreen = () => {
     const { token, user } = data;
     await authContext.save("token", token)
     userContext.saveUser(user);
-    profileContext.saveProfile(user?.profile);
+
+    const UserProfile : Profile = user.profile
+    
+   profileContext.saveProfile(UserProfile);
   }
 
 
@@ -65,17 +71,14 @@ const LoginScreen = () => {
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}  >
         <LogoSvg width={250} height={180} fill="black" />
-
         <Text style={styles.h1}>Connexion</Text>
-
-
         <Controller
           name='email'
           control={control}
           render={({ field: { onChange, value, onBlur } }) => (
-            <View style={styles.inputView}>
+            <View style={forms.formInputView}>
               <TextInput
-                style={styles.TextInput}
+                style={forms.formTextInput}
                 placeholder="Adresse email"
                 placeholderTextColor="grey"
                 onChangeText={value => onChange(value)} value={value}
@@ -88,15 +91,13 @@ const LoginScreen = () => {
             pattern: new RegExp(/[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g),
         }}  />
         {errors?.email?.type == "required" && requiredErrorText()}
-
-
         <Controller
           name='password'
           control={control}
           render={({ field: { onChange, value, onBlur } }) => (
-            <View style={styles.inputView}>
+            <View style={forms.formInputView}>
               <TextInput
-                style={styles.TextInput}
+                style={forms.formTextInput}
                 placeholder="Mot de passe"
                 placeholderTextColor="grey"
                 secureTextEntry={true}
@@ -111,11 +112,11 @@ const LoginScreen = () => {
 
         {errors?.password?.type == "required" && requiredErrorText()}
 
-        <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit(onLogin)}>
-          <Text style={styles.loginText}>SE CONNECTER</Text>
+        <TouchableOpacity style={forms.loginBtn} onPress={handleSubmit(onLogin)}>
+          <Text style={forms.loginText}>SE CONNECTER</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.forgot_button}>Mot de passe oublié ?</Text>
+          <Text style={forms.forgot_button}>Mot de passe oublié ?</Text>
         </TouchableOpacity>
 
         <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 20 }}>
@@ -125,9 +126,9 @@ const LoginScreen = () => {
         </View>
 
         <Text> Vous n'avez pas encore de compte ?</Text>
-        <TouchableOpacity style={styles.registerBtn} onPress={() =>
+        <TouchableOpacity style={forms.registerBtn} onPress={() =>
           navigation.navigate('Register')
-        }><Text style={styles.loginText}>S'ENREGISTRER</Text>
+        }><Text style={forms.loginText}>S'ENREGISTRER</Text>
         </TouchableOpacity>
 
       </SafeAreaView>

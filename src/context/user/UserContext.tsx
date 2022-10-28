@@ -1,7 +1,7 @@
 //UserContext.js
 import React, {createContext, useState} from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { UserContextType, User } from '../../@types/user';
+import { UserContextType, User } from '../../core/@types/user';
 
 const UserContext = React.createContext<UserContextType>(null);
 const {Provider} = UserContext;
