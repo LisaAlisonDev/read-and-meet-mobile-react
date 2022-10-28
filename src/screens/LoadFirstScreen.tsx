@@ -6,6 +6,7 @@ import { UserContext } from '../context/user/UserContext';
 import HomeScreen from './HomeScreen';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import { Gudea_400Regular } from '@expo-google-fonts/gudea';
+import { Roboto_400Regular } from '@expo-google-fonts/roboto';
 import * as SplashScreen from 'expo-splash-screen';
 import { Profile } from '../core/@types/profile';
 import { ProfileContext } from '../context/user/ProfilContext';
@@ -21,7 +22,8 @@ const LoadFirstScreen  = () => {
   const [status, setStatus] = useState('loading');
   const [fontsLoaded] = useFonts({
     Raleway_400Regular, 
-    Gudea_400Regular
+    Gudea_400Regular,
+    Roboto_400Regular
   });
 
 
@@ -40,10 +42,10 @@ const LoadFirstScreen  = () => {
       const user : User = await userContext.getUserFromLocal();
 
       userContext.setUser({ user: user })
-      
-      const UserProfile : Profile = user.profile;
 
-      profileContext.setProfile(UserProfile);
+     // const UserProfile : Profile = user?.profile;
+      
+      profileContext.setProfile(user?.profile!);
 
       authContext.setAuthState({
         token: jwt || null,

@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { UserContext } from "../context/user/UserContext";
 import { ProfileContext } from "../context/user/ProfilContext";
-import { RoutesStack } from "../core/@types/routes.stack";
+import { RoutesStack, screenProp } from "../core/@types/routes.stack";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import LogoSvg from "../components/App/LogoSvg";
 import { Controller, useForm } from "react-hook-form";
@@ -23,8 +23,6 @@ import forms from "../theme/styles/forms";
 import { User } from "../core/@types/user";
 import { Profile } from "../core/@types/profile";
 
-
-type screenProp = StackNavigationProp<RoutesStack>;
 
 const LoginScreen = () => {
   const authContext = useContext(AuthContext);
@@ -42,11 +40,11 @@ const LoginScreen = () => {
   });
 
   const saveUserInfo = async (data : any) => {
-    const { token, user } = data;
+    const { token, user  } = data;
     await authContext.save("token", token)
     userContext.saveUser(user);
 
-    const UserProfile : Profile = user.profile
+    const UserProfile : Profile = user?.profile
     
    profileContext.saveProfile(UserProfile);
   }
@@ -70,7 +68,7 @@ const LoginScreen = () => {
     <>
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}  >
-        <LogoSvg width={250} height={180} fill="black" />
+        <LogoSvg width={250} height={180} fill="black" style={{marginTop:100}}/>
         <Text style={styles.h1}>Connexion</Text>
         <Controller
           name='email'

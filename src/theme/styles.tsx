@@ -8,6 +8,7 @@ import { mainColor, secondaryColor } from "./constant";
 export default StyleSheet.create({
         container: {
           flex: 1,
+          borderTopRightRadius: 20,
           backgroundColor: "#fff",
           alignItems: "center",
         },
@@ -21,11 +22,11 @@ export default StyleSheet.create({
           marginTop: 10,
         },
         avatarImage:{
-          resizeMode: 'contain',
+          resizeMode: 'cover',
           alignSelf: 'center',
           justifyContent: "center",
           borderRadius: 50,
-          marginBottom: 20,
+          marginBottom: 10,
           alignItems: "center",
           textAlign: "center",
           width: 100,
@@ -48,8 +49,10 @@ export default StyleSheet.create({
             padding: 0,
         },
         homeContainer: {
-          justifyContent: 'center',
-          flex: 1,
+          top: 0,
+
+     
+
           padding: 30,
       },
       logoutBtn: {
