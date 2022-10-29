@@ -15,7 +15,7 @@ import { User } from '../../core/@types/user';
 import { Profile } from '../../core/@types/profile';
 import { ProfileContext } from '../../context/user/ProfilContext';
 import AvatarImage from '../../components/AvatarImage';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { screenProp } from '../../core/@types/routes.stack';
 import { darkColor, mainColor, secondaryColor } from '../../theme/constant';
@@ -51,10 +51,10 @@ export default function ProfileScreen() {
         <Text style={{ textAlign: "center", color: "white", fontFamily: "Raleway_400Regular", marginLeft: 10 }}></Text>
       </TouchableOpacity>
       <View />
-      <AvatarImage canEdit={true} avatar={profileContext.getProfile().avatar} />
+      <AvatarImage canEdit={true} avatar={profileContext.getProfile()?.avatar} />
 
       <Text style={styles.h1}>{userContext.getUser().name}</Text>
-      <Text style={{ textAlign: 'center', marginBottom: 20 }}> {profileContext.getProfile().visibility == true ? "Votre profil est publique" : "Votre profil est privée"}</Text>
+      <Text style={{ textAlign: 'center', marginBottom: 20 }}> {profileContext.getProfile()?.visibility == true ? "Votre profil est publique" : "Votre profil est privée"}</Text>
 
       <ProfileButton></ProfileButton>
 
@@ -66,7 +66,7 @@ export default function ProfileScreen() {
 
         <Text style={{ marginTop: 20, fontFamily: "Gudea_400Regular", fontWeight: "bold", textAlign: "left" }}> Mon récit de vie :</Text>
         <Text style={{ marginTop: 10, fontFamily: "Gudea_400Regular", textAlign: "left" }}>
-          {profileContext.getProfile().description !== "" ? 'Pas encore de description.' : profileContext.getProfile().description}</Text>
+          {profileContext.getProfile().description !== "" ? 'Pas encore de description.' : profileContext.getProfile()?.description}</Text>
 
       </View>
 

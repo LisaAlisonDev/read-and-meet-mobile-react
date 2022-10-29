@@ -1,10 +1,27 @@
-import React from "react"
-import { ImageBackground, TouchableOpacity, View, Text } from "react-native"
-import AvatarImage from "./AvatarImage"
+import { useNavigation } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { ImageBackground, TouchableOpacity, View, Text } from "react-native";
+import { AxiosContext } from "../context/api/AxiosContext";
+import { ProfileContext } from "../context/user/ProfilContext";
+import { screenProp } from "../core/@types/routes.stack";
+import AvatarImage from "./AvatarImage";
+import { uploadProfileImageToServer } from "../core/services/upload.image";
 
-const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
-    console.log('sdsfds', photo)
+const CameraPreview = ({ photo, retakePicture }: any) => {
+    const { authAxios } = useContext(AxiosContext);
+    const profileContext = useContext(ProfileContext)
+    const navigation = useNavigation<screenProp>();
 
+
+    const filename = photo.uri.split("/").pop();
+    const match = /\.(\w+)$/.exec(filename as string);
+    const ext = match?.[1];
+    const type = match ? `image/${match[1]}` : `image`;
+    const name = "avatar." + ext;
+
+    const __savePhoto = async () => {
+        await uploadProfileImageToServer(photo.uri, type, name, authAxios, profileContext, navigation)
+    }
 
     return (
         <View
@@ -13,17 +30,10 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
                 flex: 1,
                 width: '100%',
                 height: '100%',
-                paddingTop : 50,
+                paddingTop: 50,
             }}
         >
-
             <AvatarImage canEdit={false} avatar={photo.uri} ></AvatarImage>
-            {/* <ImageBackground
-                source={{ uri: photo && photo.uri }}
-                style={{
-                    flex: 1
-                }}
-            /> */}
             <View
                 style={{
                     flex: 1,
@@ -56,26 +66,26 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
                         >
                             Refaire
                         </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={savePhoto}
-                            style={{
-                                width: 130,
-                                height: 40,
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={__savePhoto}
+                        style={{
+                            width: 130,
+                            height: 40,
 
-                                alignItems: 'center',
-                                borderRadius: 4
+                            alignItems: 'center',
+                            borderRadius: 4
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: '#fff',
+                                fontSize: 20
                             }}
                         >
-                            <Text
-                                style={{
-                                    color: '#fff',
-                                    fontSize: 20
-                                }}
-                            >
-                                Enregistrer
-                            </Text>
-                        </TouchableOpacity>
+                            Enregistrer
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

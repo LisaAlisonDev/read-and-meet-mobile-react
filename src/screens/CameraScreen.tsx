@@ -1,5 +1,5 @@
 import { Camera, CameraType } from 'expo-camera';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Alert, Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraPreview from '../components/CameraPreview';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -13,8 +13,8 @@ export default function CameraScreen() {
     const [capturedImage, setCapturedImage] = useState<any>(null)
     const [startCamera, setStartCamera] = React.useState(true)
     const navigation = useNavigation<screenProp>();
-
     let camera: Camera
+
 
     if (!permission) {
         // Camera permissions are still loading
@@ -48,7 +48,7 @@ export default function CameraScreen() {
 
     const __takePicture = async () => {
         if (!camera) return
-        const photo = await camera.takePictureAsync()
+        const photo = await camera.takePictureAsync({ quality: 0.2 })
 
         console.log(photo)
         setPreviewVisible(true)
@@ -62,8 +62,6 @@ export default function CameraScreen() {
         __startCamera()
     }
 
-    const __savePhoto = () => { }
-
 
     return (
         <View style={{ width: "100%", height: "100%" }}>
@@ -75,12 +73,12 @@ export default function CameraScreen() {
                     }}
                 >
                     {previewVisible && capturedImage ? (
-                        <CameraPreview photo={capturedImage} savePhoto={__savePhoto} retakePicture={__retakePicture} />
+                        <CameraPreview photo={capturedImage} retakePicture={__retakePicture} />
                     ) : (<>
 
                         <SafeAreaView >
                             <TouchableOpacity
-                                style={{ position: 'absolute', zIndex: 1, flexDirection: "row", padding: 20,  paddingTop:40}}
+                                style={{ position: 'absolute', zIndex: 1, flexDirection: "row", padding: 20, paddingTop: 40 }}
                                 onPress={() => navigation.navigate('UploadImage')}>
                                 <MaterialIcons name="arrow-back" size={24} color="white" />
                                 <Text style={{ fontSize: 20, color: "#fff", marginLeft: 20, }}>
@@ -89,11 +87,7 @@ export default function CameraScreen() {
                         </SafeAreaView><Camera style={{ width: "100%", height: "100%" }} ratio="16:9" type={type} ref={(r) => {
                             camera = r;
                         }}>
-                            {/* <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-        </TouchableOpacity>
-    </View> */}
+
 
                             <View
                                 style={{
@@ -106,6 +100,11 @@ export default function CameraScreen() {
                                     justifyContent: 'space-between'
                                 }}
                             >
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+                                        <Text style={styles.text}>Flip Camera</Text>
+                                    </TouchableOpacity>
+                                </View>
                                 <View
                                     style={{
                                         alignSelf: 'center',

@@ -1,5 +1,7 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "jsx": "react"
+},
   "rootDir": "src",
   "outDir": "build",
   "extends": "expo/tsconfig.base"
