@@ -34,31 +34,24 @@ const Posts: React.FC = () => {
         <>
             <Text style={{ marginTop: 10 }}> Voici les annonces postés récemment :</Text>
             {loading && <Text>Loading..</Text>}
+            <View style={{ height: "100%" }}>
+                {data.map((item: Post, index) => {
+                    return (
+                            <View key={item.id} style={{
+                                backgroundColor: '#fff',
+                                marginVertical: 5,
+                                marginHorizontal: 0,
+                                padding: 5,
+                                borderRadius: 10,
+                                borderColor: darkColor, borderRightWidth: 2, borderBottomWidth: 3, borderBottomRightRadius: 20
+                            }}>
+                                <Text style={{ fontWeight: 'bold', }}>{item.title}</Text>
+                                <Text style={styles.contentText}>{item.description} le : {item.createdAt}</Text>
+                            </View>
+                    )
+                })}
 
-            <ScrollView >
-                <View style={{ height: "100%" }}>
-                    <>
-                        {data.map((item: any) => {
-                            return (
-                                <>
-                                    <View key={item.id} style={{ 
-                                        backgroundColor: '#fff', 
-                                        marginVertical: 5, 
-                                        marginHorizontal: 0, 
-                                        padding: 5, 
-                                        borderRadius: 10, 
-                                        borderColor: darkColor, borderRightWidth: 2, borderBottomWidth: 3, borderBottomRightRadius: 20 }}>
-                                        <Text style={{ fontWeight: 'bold', }}>{item.title}</Text>
-                                        <Text style={styles.contentText}>{item.description} le : {item.createdAt}</Text>
-                                    </View></>
-                            )
-
-                        })}
-                    </>
-                </View>
-            </ScrollView>
-
-
+            </View>
         </>
     )
 }
