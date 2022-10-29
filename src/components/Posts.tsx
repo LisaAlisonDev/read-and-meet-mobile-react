@@ -41,7 +41,7 @@ const Posts: React.FC = () => {
                         {data.map((item: any) => {
                             return (
                                 <>
-                                    <View style={{ 
+                                    <View key={item.id} style={{ 
                                         backgroundColor: '#fff', 
                                         marginVertical: 5, 
                                         marginHorizontal: 0, 
