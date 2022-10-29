@@ -7,6 +7,7 @@ export type RoutesStack = {
     "Login" : undefined;
     "Register" : undefined;
     "Profil" : undefined;
+    "EditProfil" : undefined;
     "Settings" : undefined;
     "UploadImage": undefined;
     "Camera" : undefined;

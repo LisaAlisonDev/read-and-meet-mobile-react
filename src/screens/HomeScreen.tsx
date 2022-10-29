@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { Text, View, Alert, Image, SafeAreaView } from 'react-native';
+import { Text, View, Alert, Image, SafeAreaView, ScrollView } from 'react-native';
 import { UserContext } from '../context/user/UserContext';
 import { User } from '../core/@types/user';
 import PostCard from '../components/Posts';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ProfileScreen from './ProfileScreen';
+import ProfileScreen from './Profile/ProfileScreen';
 import styles from '../theme/styles';
 import SettingsScreen from './SettingsScreen';
 import { mainColor, secondaryColor } from '../theme/constant';
 import { tabBarIcon } from '../components/App/TabBarIcon';
-import { Profile } from '../core/@types/profile';
 import { ProfileContext } from '../context/user/ProfilContext';
-import { Avatar } from 'react-native-paper';
 import AvatarImage from '../components/AvatarImage';
 
 const HomeScreen: React.FC = () => {
@@ -21,9 +19,9 @@ const HomeScreen: React.FC = () => {
     const loadUser = useCallback(async () => {
         try {
             const value = await userContext.getUserFromLocal();
-            const user : User= JSON.parse(value)
+            const user: User = JSON.parse(value)
             userContext.setUser(user)
-             profileContext.saveProfile(user?.profile);
+            profileContext.saveProfile(user?.profile);
 
             //profileContext.setProfile(user?.profile)
         } catch (error) {
@@ -43,11 +41,14 @@ const HomeScreen: React.FC = () => {
 
     function HomeContent() {
         return (
-            <><SafeAreaView style={styles.homeContainer}>
+
+            <ScrollView><SafeAreaView style={styles.homeContainer}>
+                <View style={{ marginTop: 50}}>
                 <AvatarImage canEdit={false} avatar={profileContext.getProfile()?.avatar} />
+                </View>
                 <Text style={styles.h1}>Bienvenue {userContext.getUser()?.name}!</Text>
                 <PostCard />
-            </SafeAreaView></>
+            </SafeAreaView></ScrollView>
         );
     }
 
@@ -55,7 +56,7 @@ const HomeScreen: React.FC = () => {
         <View style={styles.navigationBar}>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
-                    headerTitleStyle: {fontFamily : "Roboto_400Regular", fontWeight: "bold",},
+                    headerTitleStyle: { fontFamily: "Roboto_400Regular", fontWeight: "bold", },
                     tabBarActiveTintColor: mainColor,
                     headerTintColor: mainColor,
                     tabBarIcon: ({ focused, color, size }) => {
@@ -63,7 +64,7 @@ const HomeScreen: React.FC = () => {
                     }
                 })}
             >
-                <Tab.Screen name="Home" component={HomeContent} options={{ title: 'Accueil', headerShown: false,  }} />
+                <Tab.Screen name="Home" component={HomeContent} options={{ title: 'Accueil', headerShown: false, }} />
                 <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Mon profil' }} />
                 <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Mes paramètres' }} />
             </Tab.Navigator>

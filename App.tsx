@@ -13,6 +13,7 @@ import { RoutesStack } from "./src/core/@types/routes.stack";
 import LoadFirstScreen from "./src/screens/LoadFirstScreen";
 import UploadImageScreen from "./src/screens/UploadImageScreen";
 import CameraScreen from "./src/screens/CameraScreen";
+import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
 
 const Stack = createNativeStackNavigator<RoutesStack>();
 
@@ -28,6 +29,7 @@ export default function App() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} options={{title:'Inscription'}}/>
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="EditProfil" component={EditProfileScreen} options={{title:'Modifier ma bio'}}/>
                 <Stack.Screen name="UploadImage" component={UploadImageScreen} options={{title:'Modifier ma photo de profil'}}/>
                 <Stack.Screen name="Camera" component={CameraScreen} options={{headerShown: false}}/>
               </Stack.Navigator>
